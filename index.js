@@ -18,12 +18,12 @@ const {
 
 const v2mdConfig = resolve(config)
 
-if (!v2mdConfig) {
+if (!fs.existsSync(v2mdConfig)) {
   console.log(colors.red.underline(`${config} is not exist, please wait a little`));
 } else {
   const {
     entry = 'src'
-  } = v2mdConfig
+  } = require(v2mdConfig)
 
   function traverseFile(directory = entry) {
     const dir = fs.readdirSync(resolve(`${directory}`), 'utf-8')
@@ -35,8 +35,9 @@ if (!v2mdConfig) {
           fs.readFile(resolve(directory, file), 'utf-8', (err, data) => {
             if (file.split('.').slice(-1)[0] === 'vue') { // 判断是否是Vue文件
               const ast = VueCompiler(data) // 获取.vue转化出来的ast树
-        
-              astParse(ast) // 将vue文件转换成markdown
+              fs.writeFile(resolve(directory, 'output.md'), astParse(ast), 'utf-8' , (err, data) => { // 将vue文件转换成markdown
+                if (err) console.log(colors.red(err))
+              })
             }
           })
         } else if (stat.isDirectory()) { // 如果是目录, 则递归遍历

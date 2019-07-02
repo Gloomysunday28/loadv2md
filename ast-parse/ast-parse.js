@@ -1,5 +1,6 @@
 const transform = require('../transform2md')
 const traverse = require('@babel/traverse').default
+const fs = require('fs')
 
 function astParser(ast) {
   let transformMarkdown = '' // 转换成markdown的内容
@@ -35,7 +36,7 @@ function astParser(ast) {
   function getMethods(med) {
     for (let o of med.properties) {
       for (let l of o.leadingComments) {
-        let value = l.value.trim()
+        let value = o.key.name + 'v2md' + l.value.trim()
         if (l.type === 'CommentBlock') {
           value = value.replace(/[\*\r\n\s]/g, '')
         }
@@ -53,12 +54,12 @@ function astParser(ast) {
       }
 
       Object.keys(md).forEach(m => {
-        transformMarkdown += transform[m](md[m])
+        transformMarkdown = transformMarkdown + transform[m](md[m]) + '\n'
       })
-
-      console.log(1, transformMarkdown);
     }
   })
+
+  return transformMarkdown
 }
 
 

@@ -6,9 +6,10 @@
 export default {
   name: 'Vue', // 123
   methods: {
-    // name: string
+    // @param: string # name - your name
     /**
-     * @param {name}
+     * @param {string} # name - your name
+     * @param {string} # age - 12
      */
     martin() {
       
