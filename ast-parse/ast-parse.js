@@ -51,7 +51,7 @@ function astParser(ast) {
     ExportDefaultDeclaration(path) {
       if (!path.node.declaration.properties) return
       for (let o of path.node.declaration.properties) {
-        fnMap[o.key.name](o.value)
+        fnMap[o.key.name] && fnMap[o.key.name](o.value)
       }
 
       Object.keys(md).forEach(m => {
