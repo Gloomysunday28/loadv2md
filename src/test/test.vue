@@ -11,7 +11,6 @@ export default {
      * @param {string} # name - mr.martin
      */
     test() {
-      
     }
   }
 }

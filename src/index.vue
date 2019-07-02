@@ -7,10 +7,13 @@ export default {
   name: 'Vue', // 123
   methods: {
     // @param: string # name - your name
+    // @param: number # age - 123
+    // @author: mr.martin
     /**
      * @param {string} # name - your name
      * @param {string} # age - 12
      * @author {mr.martin}
+     * @description {这是马丁}
      */
     martin() {
       

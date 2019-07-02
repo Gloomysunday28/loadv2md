@@ -29,20 +29,20 @@
     console.log(mt);
   }
 
-  function createCommon({data: mt}, methods) { // 处理param
-    const authorAry = mt.split('@').filter(v => v.startsWith('author'))
-    if (!authorAry.length) return
+  function createCommon({data: mt, start, end = '</code>\n', findDoc = 'author', regExp = /[\{\}]/ig}, methods) { // 处理author
+    const commonAry = mt.split('@').filter(v => v.startsWith(findDoc))
+    if (!commonAry.length) return
 
-    authorAry.forEach(aut => {
-      const author = aut.replace(/\s/g, '').split(/[\{\}]/ig).filter(Boolean)
-      methods.author = (methods.author || '作者: ') + author[1] + '\n'
+    commonAry.forEach(aut => {
+      const common = aut.replace(/\s/g, '').split(regExp).filter(Boolean)
+      methods[findDoc] = (methods[findDoc] || '') + start + common[1] + end
     })
   }
 
   const formatDiffMD = {
     param: createParam,
     url: formatUrl,
-    author: createCommon
+    common: createCommon
   }
   
   module.exports = formatDiffMD

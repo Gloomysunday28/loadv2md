@@ -35,7 +35,7 @@ if (!fs.existsSync(v2mdConfig)) {
           fs.readFile(resolve(directory, file), 'utf-8', (err, data) => {
             if (file.split('.').slice(-1)[0] === 'vue') { // 判断是否是Vue文件
               const ast = VueCompiler(data) // 获取.vue转化出来的ast树
-              fs.writeFile(resolve(directory, 'output.md'), astParse(ast), 'utf-8' , (err, data) => { // 将vue文件转换成markdown
+              fs.writeFile(resolve(directory, 'output.md'), astParse(ast), 'utf-8' , (err) => { // 将vue文件转换成markdown
                 if (err) console.log(colors.red(err))
               })
             }
