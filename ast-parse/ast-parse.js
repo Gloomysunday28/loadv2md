@@ -34,13 +34,15 @@ function astParser(ast) {
    */
   function getMethods(med) {
     for (let o of med.properties) {
-      for (let l of o.leadingComments) {
-        let value = o.key.name + 'v2md' + l.value.trim()
-        if (l.type === 'CommentBlock') {
-          value = value.replace(/[\*\r\n\s]/g, '')
+      if (o.leadingComments) {
+        for (let l of o.leadingComments) {
+          let value = o.key.name + 'v2md' + l.value.trim()
+          if (l.type === 'CommentBlock') {
+            value = value.replace(/[\*\r\n\s]/g, '')
+          }
+  
+          md.methods = conditionalLoadin(md.methods, value)
         }
-
-        md.methods = conditionalLoadin(md.methods, value)
       }
     }
   }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const VueCompiler = require('./ast-parse/vue-template-compile')
 const fs = require('fs')
 const {
@@ -24,10 +26,8 @@ if (!fs.existsSync(v2mdConfig)) {
   const {
     entry = 'src'
   } = require(v2mdConfig)
-
   function traverseFile(directory = entry) {
     const dir = fs.readdirSync(resolve(`${directory}`), 'utf-8')
-
     dir.forEach(file => {
       fs.stat(resolve(directory, file), (err, stat) => {
         if (err) return console.log(colors.red(err))
