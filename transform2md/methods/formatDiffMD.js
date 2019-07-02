@@ -6,6 +6,7 @@
 (function() {
   function createParam({data: mt, name, regExp} = {}, methods) {
     const params = mt.split('@').filter(v => v.startsWith('param'))
+    if (!params.length) return
     
     params.forEach(pm => {
       methods.params = (methods.params || '') + formatParam({data: pm, regExp}, name)
@@ -28,14 +29,20 @@
     console.log(mt);
   }
 
-  function formatCommon(mt) { // 处理param
-    console.log(mt);
+  function createCommon({data: mt}, methods) { // 处理param
+    const authorAry = mt.split('@').filter(v => v.startsWith('author'))
+    if (!authorAry.length) return
+
+    authorAry.forEach(aut => {
+      const author = aut.replace(/\s/g, '').split(/[\{\}]/ig).filter(Boolean)
+      methods.author = (methods.author || '作者: ') + author[1] + '\n'
+    })
   }
 
   const formatDiffMD = {
     param: createParam,
     url: formatUrl,
-    author: formatCommon
+    author: createCommon
   }
   
   module.exports = formatDiffMD

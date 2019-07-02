@@ -27,18 +27,27 @@ function formatJSDOC({mt, name, reg = '{'} = {}) {
   }
   
   formatDiffMD.param({data: mt, name, regExp}, methods)
+  formatDiffMD.author({data: mt}, methods)
 
   return methods
 }
 
+/**
+ * @param {Array} # tm -> ['martinv2md@param{string}#name-yourname@param{string}#age-12@authormr.martin']
+ * @author mr.martin
+ */
 const transformMethods = function(tm) {
   let MD_TABLES = '| 方法名 | 参数 | 类型 | 说明\n' + '|:---:|'.repeat(4) + '\n'
+
   tm.forEach(mt => {
-    methods = {}
-    MD_TABLES += formatMethods(mt).params
+    const MARK_DOWN_METHODS = formatMethods(mt)
+
+    methods.params = ''
+    MD_TABLES += MARK_DOWN_METHODS.params
+    
   })
 
-  return MD_TABLES
+  return methods.author + MD_TABLES
 }
 
 module.exports = transformMethods

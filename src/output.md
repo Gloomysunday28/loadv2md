@@ -2,9 +2,7 @@
 Vue
 ---
 
+作者: mr.martin
 | 方法名 | 参数 | 类型 | 说明
 |:---:||:---:||:---:||:---:|
-| martin | name | string | yourname | 
-| martin | name | string | yourname | 
-| martin | age | string | 12 | 
 

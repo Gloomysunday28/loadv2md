@@ -10,6 +10,7 @@ export default {
     /**
      * @param {string} # name - your name
      * @param {string} # age - 12
+     * @author {mr.martin}
      */
     martin() {
       

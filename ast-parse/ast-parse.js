@@ -1,6 +1,5 @@
 const transform = require('../transform2md')
 const traverse = require('@babel/traverse').default
-const fs = require('fs')
 
 function astParser(ast) {
   let transformMarkdown = '' // 转换成markdown的内容
