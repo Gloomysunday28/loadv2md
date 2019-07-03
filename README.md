@@ -22,9 +22,11 @@
 
 > 命令行用法
 
+```
 npx @kvinc/loadingv2md@latest --config v2md.config.js --component  --ignore dir
 === OR ===
 loadingv2md --config v2md.config.js --component  --ignore dir
+```
 
 > 配置文件
 ```
