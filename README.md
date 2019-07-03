@@ -17,7 +17,7 @@
 | :----: | :----:| :----:|
 | config | string | 指定配置文件, 必须是v2md.config.js |
 |component| boolean| 是否展示组件 |
-|ignore| array | string  | 忽略某个文件下的vue转换 |
+|ignore| <code>array or string</code>  | 忽略某个文件下的vue转换 |
 |entry| string  | 入口文件夹 |
 
 > 命令行用法
