@@ -1,6 +1,6 @@
 
 (function() {
-  const { custResolve } = require('../utils')
+  const { custResolve, resolve } = require('../utils')
   const fs = require('fs')
   var tinify = require("tinify");
 
@@ -22,10 +22,10 @@
         if (fs.existsSync(custResolve(img))) {
           const path = custResolve(img)
           if (imgStack.includes(img)) continue
-          
+
           imgStack.push(img)
           const source = tinify.fromFile(path)
-          source.toFile(path)
+          source.toFile(resolve(custResolve(img)))
         }
       }
     }
