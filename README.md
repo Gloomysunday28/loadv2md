@@ -54,7 +54,7 @@ loadingv2md --config v2md.config.js --component  --ignore dir
 
 > === 转换 ===
 
-<code>作者: 作者名称<code></code>
+<code>作者: 作者名称<code>
 
 ### 描述
 ```
