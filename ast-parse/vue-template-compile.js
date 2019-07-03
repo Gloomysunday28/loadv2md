@@ -7,7 +7,13 @@ const VueCompiler = require('vue-template-compiler')
 module.exports = function vueTemplateCompiler(file) {
   const compiler = VueCompiler.parseComponent(file)
   const content = compiler.script ? compiler.script.content : ''
-  const ast = parser.parse(content, {sourceType: 'module'})
+  const astTemplate = compiler.template ? compiler.template.content : '' // 模板内容
+  const astStyle = compiler.styles && compiler.styles.length ? compiler.styles : [] // 样式内容
+  const astScript = parser.parse(content, {sourceType: 'module'}) // script标签AST树
   
-  return ast
+  return {
+    astScript,
+    astTemplate,
+    astStyle
+  }
 }

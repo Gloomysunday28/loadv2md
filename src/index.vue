@@ -1,5 +1,10 @@
 <template>
-  <div>1</div>
+  <div>
+    <img src="../img/lufei.jpg" alt="">
+    <div>
+      <!-- <img src="../img/lufei1.jpg" alt=""> -->
+    </div>
+  </div>
 </template>
 
 <script>
@@ -26,6 +31,11 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  div {
+    background: url('../img/lufei.jpg');
+  }
+  p {
+    background: url('../img/lufei1.jpg');
+  }
 </style>

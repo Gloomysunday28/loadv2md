@@ -3,11 +3,12 @@
 const VueCompiler = require('./ast-parse/vue-template-compile')
 const fs = require('fs')
 const {
-  resolve
+  resolve,
 } = require('./utils')
 const program = require('commander')
 const colors = require('colors')
 const astParse = require('./ast-parse/ast-parse')
+const { compress } = require('./template/compress')
 
 program
   .version('0.0.1')
@@ -33,8 +34,6 @@ if (!fs.existsSync(v2mdConfig)) {
     ignore = paramIgnore
   } = require(v2mdConfig)
 
-  console.log(ignore);
-
   ignore = transformIgnore(ignore)
 
   function traverseFile(directory = entry) {
@@ -45,15 +44,20 @@ if (!fs.existsSync(v2mdConfig)) {
         if (stat.isFile()) { // 如果是文件
           fs.readFile(resolve(directory, file), 'utf-8', (err, data) => {
             if (file.split('.').slice(-1)[0] === 'vue') { // 判断是否是Vue文件
-              const ast = VueCompiler(data) // 获取.vue转化出来的ast树
-              fs.writeFile(resolve(directory, 'output.md'), astParse(ast, component), 'utf-8' , (err) => { // 将vue文件转换成markdown
+              const {
+                astScript, // vue script部分的AST树
+                astTemplate, // vue template部分的AST数
+                astStyle, // vue styles部分的AST数
+              } = VueCompiler(data) // 获取.vue转化出来的ast树
+
+              compress(astTemplate, astStyle) // 压缩template里的图片
+
+              fs.writeFile(resolve(directory, 'output.md'), astParse(astScript, component), 'utf-8' , (err) => { // 将vue文件转换成markdown
                 if (err) console.log(colors.red(err))
               })
             }
           })
         } else if (stat.isDirectory() && !ignore.includes(file)) { // 如果是目录, 则递归遍历
-          console.log(ignore);
-          console.log(file);
           traverseFile(resolve(directory, file))
         }
       })
