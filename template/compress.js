@@ -1,7 +1,8 @@
 
 (function() {
-  const { custResolve, resolve } = require('../utils')
+  const { resolve } = require('../utils')
   const fs = require('fs')
+  const colors = require('colors')
   var tinify = require("tinify");
 
   tinify.key = "_53YkYKYVHhKZihlAckkBWciYpRtit1P";
@@ -16,6 +17,7 @@
     const imgStack = [] // 图片缓存区, 如果已经压缩过的, 那么不再压缩
 
     return function(temp, styl) {
+      let compressSuccess = 1
       var imgArray = getTemplateImg(temp).concat(flatArray(getStyleImg(styl)))
       
       for (let img of imgArray) {
@@ -26,7 +28,15 @@
 
           imgStack.push(img)
           const source = tinify.fromFile(path)
-          source.toFile(path)
+          source.toFile(path).then(res => {
+            if (compressSuccess > 0) {
+              compressSuccess--
+              console.log(colors.green.bold.underline(`compress ${path} is success`))
+            }
+          }).catch(err => {
+            compressSuccess--
+            console.log(colors.red(err))
+          })
         }
       }
     }
