@@ -76,7 +76,7 @@ loadingv2md --config v2md.config.js --component  --ignore dir
 ```
  name: 'BaseComponent'
 ```
-===转换===
+=== 转换 ===
 ```
  ---
   BaseComponent
