@@ -26,6 +26,10 @@
 npx @kvinc/loadingv2md@latest --config v2md.config.js --component  --ignore dir
 === OR ===
 loadingv2md --config v2md.config.js --component  --ignore dir
+
+参数使用可以参考:
+  loadingv2md -h
+  npx @kvinc/loadingv2md@latest -h
 ```
 
 > 配置文件
