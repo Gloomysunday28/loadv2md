@@ -31,7 +31,7 @@
           source.toFile(path).then(res => {
             if (compressSuccess > 0) {
               compressSuccess--
-              console.log(colors.rainbow(`compress ${path} is success`))
+              console.log(colors.green.bold.underline(`compress ${path} is success`))
             }
           }).catch(err => {
             compressSuccess--
