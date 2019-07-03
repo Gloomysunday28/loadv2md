@@ -1,9 +1,15 @@
+const fs = require('fs')
+const colors = require('colors')
 const transform = require('../transform2md')
 const traverse = require('@babel/traverse').default
+const {
+  resolve,
+} = require('../utils')
 
-function astParser(ast, component/* 是否展示组件 */) {
+function astParser(directory, ast, component/* 是否展示组件 */) {
   let transformMarkdown = '' // 转换成markdown的内容
   let componentName = '' // 组件名称
+  let markdown = '' // markdown名称
 
   // 装载markdown配置项
   const md = {}
@@ -55,6 +61,8 @@ function astParser(ast, component/* 是否展示组件 */) {
    * @returns {string}
    */
   function createComponent(name) {
+    markdown = name
+
     name = name.replace(/[A-Z]/g, (c, _d, _e, _f) => {
       return (_d ? '-' : '') + c.toLocaleLowerCase()
     })
@@ -75,7 +83,12 @@ function astParser(ast, component/* 是否展示组件 */) {
       })
     }
   })
-  return transformMarkdown + componentName
+
+  fs.writeFile(resolve(directory, `${markdown}.md`), transformMarkdown + componentName , 'utf-8' , (err) => { // 将vue文件转换成markdown
+    if (err) console.log(colors.red(err))
+  })
+  
+  return
 }
 
 

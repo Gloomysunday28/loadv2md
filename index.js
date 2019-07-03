@@ -52,9 +52,7 @@ if (!fs.existsSync(v2mdConfig)) {
 
               compress(astTemplate, astStyle) // 压缩template里的图片
 
-              fs.writeFile(resolve(directory, 'output.md'), astParse(astScript, component), 'utf-8' , (err) => { // 将vue文件转换成markdown
-                if (err) console.log(colors.red(err))
-              })
+              astParse(directory, astScript, component)
             }
           })
         } else if (stat.isDirectory() && !ignore.includes(file)) { // 如果是目录, 则递归遍历
