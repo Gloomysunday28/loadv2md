@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../img/lufei.jpg" alt="">
+    <img src="./assets/img/lufei.jpg" alt="">
     <div>
       <!-- <img src="../img/lufei1.jpg" alt=""> -->
     </div>

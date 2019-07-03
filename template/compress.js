@@ -19,13 +19,14 @@
       var imgArray = getTemplateImg(temp).concat(flatArray(getStyleImg(styl)))
       
       for (let img of imgArray) {
-        if (fs.existsSync(custResolve(img))) {
-          const path = custResolve(img)
+        const imgName = img.split('/').slice(-2).join('/')
+        if (fs.existsSync(resolve('src/assets', imgName))) {
+          const path = resolve('src/assets', imgName)
           if (imgStack.includes(img)) continue
 
           imgStack.push(img)
           const source = tinify.fromFile(path)
-          source.toFile(resolve(custResolve(img)))
+          source.toFile(path)
         }
       }
     }

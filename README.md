@@ -98,7 +98,7 @@ loadingv2md --config v2md.config.js --component  --ignore dir
     <img src="/path/to" />
   </div>
 
-  说明: template是以上这种, 会根据/path/to来查找当前目录下图片并且进行压缩覆盖, 注意, 路径只支持相对路径, 不支持模块路径
+  说明: template是以上这种, 会根据/path/to来查找当前目录下图片并且进行压缩覆盖, 注意, 图片暂时只能在src下的assets里, 生成也会在src下的assets
 ```
 
 > styles
