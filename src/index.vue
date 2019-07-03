@@ -4,13 +4,14 @@
 
 <script>
 export default {
-  name: 'Vue', // 123
+  name: 'BaseMartin', // 123
   methods: {
     /**
      * @param {string} # name - your name
      * @param {string} # age - 12
      * @author {mr.martin}
      * @description {这是马丁}
+     * @returns {string} # sex - your sex
      */
     martin() {
       

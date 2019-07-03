@@ -4,12 +4,13 @@
  */
 
 (function() {
-  function createParam({data: mt, name, regExp} = {}, methods) {
-    const params = mt.split('@').filter(v => v.startsWith('param'))
+  function createParam({data: mt, name, regExp, findDoc} = {}, methods) {
+    let MD_TABLES = `## ${findDoc === 'param' ? '参数' : '返回'} \n| 方法名 | 参数 | 类型 | 说明 |\n` + '|:---:'.repeat(4) + '|\n'
+    const params = mt.split('@').filter(v => v.startsWith(findDoc))
     if (!params.length) return
     
     params.forEach(pm => {
-      methods.params = (methods.params || '') + formatParam({data: pm, regExp}, name)
+      methods[findDoc] = (methods[findDoc] || MD_TABLES) + formatParam({data: pm, regExp}, name)
     })
   }
   
@@ -30,6 +31,8 @@
   }
 
   function createCommon({data: mt, start, end = '</code>\n', findDoc = 'author', regExp = /[\{\}]/ig}, methods) { // 处理author
+    // methods[findDoc] = ''
+    // console.log(methods[findDoc]);
     const commonAry = mt.split('@').filter(v => v.startsWith(findDoc))
     if (!commonAry.length) return
 

@@ -1,3 +1,5 @@
 module.exports = {
-    entry: 'src'
+    entry: 'src',
+    component: true,
+    // ignore: ['test']
 }

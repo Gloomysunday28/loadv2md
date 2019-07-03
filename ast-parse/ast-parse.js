@@ -1,14 +1,16 @@
 const transform = require('../transform2md')
 const traverse = require('@babel/traverse').default
 
-function astParser(ast) {
+function astParser(ast, component/* 是否展示组件 */) {
   let transformMarkdown = '' // 转换成markdown的内容
+  let componentName = '' // 组件名称
+
   // 装载markdown配置项
   const md = {}
   // 策略模式
   const fnMap = {
-    'name': getName,
-    'methods': getMethods
+    'name': createName,
+    'methods': createMethods
   }
 
   /**
@@ -23,7 +25,7 @@ function astParser(ast) {
     return c
   }
 
-  function getName(name) {
+  function createName(name) {
     md.name = conditionalLoadin(md.name, name.value)
   }
 
@@ -32,7 +34,7 @@ function astParser(ast) {
    * @param {c}  
    * @returns {Array<string>}
    */
-  function getMethods(med) {
+  function createMethods(med) {
     for (let o of med.properties) {
       if (o.leadingComments) {
         for (let l of o.leadingComments) {
@@ -47,10 +49,24 @@ function astParser(ast) {
     }
   }
 
+   /**
+   * @description 根据命令行配置是否需要展示组件
+   * @param {string} # name - 组件名称
+   * @returns {string}
+   */
+  function createComponent(name) {
+    name = name.replace(/[A-Z]/g, (c, _d, _e, _f) => {
+      return (_d ? '-' : '') + c.toLocaleLowerCase()
+    })
+
+    return `## 组件展示\n<${name}></${name}>`
+  }
+
   traverse(ast, {
     ExportDefaultDeclaration(path) {
       if (!path.node.declaration.properties) return
       for (let o of path.node.declaration.properties) {
+        if (o.key.name === 'name' && component) componentName = createComponent(o.value.value) // 拼装组件
         fnMap[o.key.name] && fnMap[o.key.name](o.value)
       }
 
@@ -59,8 +75,7 @@ function astParser(ast) {
       })
     }
   })
-
-  return transformMarkdown
+  return transformMarkdown + componentName
 }
 
 
