@@ -6,9 +6,9 @@
 
 ## 安装
 ```
-  cnpm i @kvinc/loadingv2md -g
+  cnpm i @kvinc/loadingv2md@latest -g
   或者
-  npx @kvinc/loadingv2md
+  npx @kvinc/loadingv2md@latest
 ```
 
 ## 配置项
@@ -22,7 +22,7 @@
 
 > 命令行用法
 
-npx @kvinc/loadingv2md --config v2md.config.js --component  --ignore dir
+npx @kvinc/loadingv2md@latest --config v2md.config.js --component  --ignore dir
 === OR ===
 loadingv2md --config v2md.config.js --component  --ignore dir
 

@@ -1,6 +1,6 @@
 {
   "name": "@kvinc/loadingv2md",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "vue转换markdown",
   "main": "index.js",
   "bin": {
@@ -17,9 +17,10 @@
     "@babel/traverse": "^7.4.5",
     "colors": "^1.3.3",
     "commander": "^2.20.0",
+    "tinify": "^1.6.0-beta.2",
     "vue-template-compiler": "^2.6.10"
   },
   "devDependencies": {
-    "@kvinc/loadingv2md": "^0.0.8"
+    "@kvinc/loadingv2md": "^0.1.5"
   }
 }
