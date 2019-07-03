@@ -12,7 +12,7 @@
    * @param {string} styles
    * @returns {Function}
    */
-  const compress = (function() {
+  const compressImg = (function() {
     const imgStack = [] // 图片缓存区, 如果已经压缩过的, 那么不再压缩
 
     return function(temp, styl) {
@@ -70,6 +70,6 @@
   }
 
   module.exports = {
-    compress
+    compressImg
   }
 })()

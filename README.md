@@ -19,6 +19,7 @@
 |component| boolean| 是否展示组件 |
 |ignore| <code>array or string</code>  | 忽略某个文件下的vue转换 |
 |entry| string  | 入口文件夹 |
+|compress| boolean  | 是否压缩图片 |
 
 > 命令行用法
 

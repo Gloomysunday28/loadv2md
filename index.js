@@ -8,19 +8,21 @@ const {
 const program = require('commander')
 const colors = require('colors')
 const astParse = require('./ast-parse/ast-parse')
-const { compress } = require('./template/compress')
+const { compressImg } = require('./template/compress')
 
 program
   .version('0.0.1')
   .option('-c, --config [n]', 'v2md.config.js')
   .option('-com, --component [b]', 'false')
   .option('-ig, --ignore [n]', '')
+  .option('-cmp, --compress [n]', '')
   .parse(process.argv)
 
 const {
   config = 'v2md.config.js',
   component: paramComponent = false, // 命令行参数列表
-  ignore: paramIgnore
+  ignore: paramIgnore,
+  compress: paramCompress = false 
 } = program
 
 const v2mdConfig = resolve(config) // 获取文件路径
@@ -31,7 +33,8 @@ if (!fs.existsSync(v2mdConfig)) {
   let {
     entry = 'src',
     component = paramComponent, // 默认为命令行参数
-    ignore = paramIgnore
+    ignore = paramIgnore,
+    compress = paramCompress
   } = require(v2mdConfig)
 
   ignore = transformIgnore(ignore)
@@ -50,7 +53,9 @@ if (!fs.existsSync(v2mdConfig)) {
                 astStyle, // vue styles部分的AST数
               } = VueCompiler(data) // 获取.vue转化出来的ast树
 
-              compress(astTemplate, astStyle) // 压缩template里的图片
+              if (compress) {
+                compressImg(astTemplate, astStyle) // 压缩template里的图片
+              }
 
               astParse(directory, astScript, component)
             }
